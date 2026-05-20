@@ -1,11 +1,28 @@
 # Neovim Config
 
-This is a personal [LazyVim](https://lazyvim.github.io/) setup with a few workflow tweaks:
+Welcome to my personal LazyVim configuration! This setup provides a fast, robust foundation with custom workflow tweaks designed to make transitioning from traditional GUI editors easier.
 
-- `F2` toggles the Snacks explorer
-- `F8` toggles a reusable bottom terminal
-- `Ctrl-z` and `Ctrl-y` provide undo/redo shortcuts similar to GUI editors
-- Blade, Vue, TypeScript, Tailwind, ESLint, and Prettier support are enabled
+## Features & Keybindings
+
+Here are the custom shortcuts added to this configuration:
+
+| Key(s) | Action |
+| :--- | :--- |
+| `<F2>` | Toggles the **Snacks explorer** (file tree) |
+| `<F8>` | Toggles a **reusable bottom terminal** |
+| `Ctrl-z` | **Undo** (similar to GUI editors) |
+| `Ctrl-y` | **Redo** (similar to GUI editors) |
+| `Ctrl-a` | **Select all** text |
+
+**Language Support Included:** Blade, Vue, TypeScript, Tailwind, ESLint, and Prettier.
+
+## Prerequisites
+
+Before installing, please ensure you have the following dependencies installed on your system:
+1. **Git**: Required to download and manage plugins.
+2. **A Nerd Font**: Required for displaying file icons correctly in the editor.
+3. **A C Compiler** (e.g., `gcc` or `clang`): Required by `nvim-treesitter` for code syntax highlighting.
+4. **Ripgrep**: Required for searching text across multiple files.
 
 ## Installation
 
@@ -31,7 +48,13 @@ This is a personal [LazyVim](https://lazyvim.github.io/) setup with a few workfl
    nvim
    ```
 
-Useful checks:
+## Getting Started
+
+When you launch Neovim for the first time, wait for the Lazy plugin manager to finish downloading everything.
+1. Press `q` to close the plugin manager window once it finishes.
+2. Type `:checkhealth` and press `Enter` to ensure your environment is set up correctly and verify no dependencies are missing.
+
+## Useful Checks (for advanced users)
 
 ```sh
 stylua . # if stylua is installed on your PATH

@@ -12,11 +12,8 @@ vim.api.nvim_create_autocmd("BufReadCmd", {
   group = image_preview,
   pattern = { "*.png", "*.jpg", "*.jpeg", "*.gif" },
   callback = function()
-    if vim.fn.executable("xdg-open") ~= 1 then
-      vim.notify("xdg-open is not available on this system", vim.log.levels.WARN)
-      return
-    end
-    vim.fn.jobstart({ "xdg-open", vim.fn.expand("%:p") }, { detach = true })
+    -- vim.ui.open automatically uses the correct tool for Linux, macOS, and Windows
+    vim.ui.open(vim.fn.expand("%:p"))
     vim.cmd("bdelete!")
   end,
 })
