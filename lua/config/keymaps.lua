@@ -26,7 +26,7 @@ map("i", "<C-y>", "<Esc><C-r>", { desc = "Redo (fallback)" })
 -- F2: toggle Snacks Explorer (safe require)
 map("n", "<F2>", function()
   local ok, snacks = pcall(require, "snacks")
-  if not ok then
+  if not ok or not snacks.explorer or not snacks.explorer.toggle then
     vim.notify("snacks.nvim is not installed/loaded", vim.log.levels.ERROR)
     return
   end
@@ -54,7 +54,8 @@ local function open_term_window()
 
   -- create terminal buffer if needed
   if not term.buf or not vim.api.nvim_buf_is_valid(term.buf) then
-    term.buf = vim.api.nvim_create_buf(false, true) -- listed=false, scratch=true
+    term.buf = vim.api.nvim_create_buf(false, false)
+    vim.bo[term.buf].bufhidden = "hide"
     vim.api.nvim_win_set_buf(term.win, term.buf)
     vim.cmd("terminal")
   else
