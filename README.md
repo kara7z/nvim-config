@@ -33,16 +33,27 @@ Before installing, please ensure you have the following dependencies installed o
    - **Windows (Winget):** `winget install Neovim.Neovim`
    - **Other platforms:** See the [Neovim Installation Guide](https://github.com/neovim/neovim/blob/master/INSTALL.md).
 2. Back up your existing Neovim configuration (if any):
-   ```sh
-   mv ~/.config/nvim ~/.config/nvim.bak
-   mv ~/.local/share/nvim ~/.local/share/nvim.bak
-   mv ~/.local/state/nvim ~/.local/state/nvim.bak
-   mv ~/.cache/nvim ~/.cache/nvim.bak
-   ```
+   - **Linux/macOS:**
+     ```sh
+     mv ~/.config/nvim ~/.config/nvim.bak
+     mv ~/.local/share/nvim ~/.local/share/nvim.bak
+     mv ~/.local/state/nvim ~/.local/state/nvim.bak
+     mv ~/.cache/nvim ~/.cache/nvim.bak
+     ```
+   - **Windows (PowerShell):**
+     ```powershell
+     Rename-Item -Path $env:LOCALAPPDATA\nvim -NewName nvim.bak -ErrorAction SilentlyContinue
+     Rename-Item -Path $env:LOCALAPPDATA\nvim-data -NewName nvim-data.bak -ErrorAction SilentlyContinue
+     ```
 3. Clone this repository into your Neovim configuration directory:
-   ```sh
-   git clone https://github.com/kara7z/nvim-config.git ~/.config/nvim
-   ```
+   - **Linux/macOS:**
+     ```sh
+     git clone https://github.com/kara7z/nvim-config.git ~/.config/nvim
+     ```
+   - **Windows (CMD/PowerShell):**
+     ```sh
+     git clone https://github.com/kara7z/nvim-config.git "$env:LOCALAPPDATA\nvim"
+     ```
 4. Start Neovim! LazyVim will automatically download and install plugins on the first run.
    ```sh
    nvim
