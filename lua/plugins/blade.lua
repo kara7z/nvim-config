@@ -5,8 +5,7 @@ return {
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     build = ":TSUpdate",
   },
-
-  -- Ensure treesitter installs the languages we need for Blade
+  -- Ensure treesitter installs the languages we need
   {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
@@ -18,6 +17,14 @@ return {
         "css",
         "javascript",
         "json",
+        "vue",
+      })
+
+      -- Teach Neovim to recognize .blade.php files
+      vim.filetype.add({
+        pattern = {
+          [".*%.blade%.php"] = "blade",
+        },
       })
     end,
   },
