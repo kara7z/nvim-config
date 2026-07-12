@@ -10,11 +10,13 @@ Here are the custom shortcuts added to this configuration:
 | :--- | :--- |
 | `<F2>` | Toggles the **Snacks explorer** (file tree) |
 | `<F8>` | Toggles a **reusable bottom terminal** |
+| `Alt-j` | **Move line down** |
+| `Alt-k` | **Move line up** |
 | `Ctrl-z` | **Undo** (similar to GUI editors) |
 | `Ctrl-y` | **Redo** (similar to GUI editors) |
 | `Ctrl-a` | **Select all** text |
 
-**Language Support Included:** Blade, Vue, TypeScript, Tailwind, ESLint, and Prettier.
+**Language Support Included:** C/C++, Blade, Vue, TypeScript, Tailwind, ESLint, and Prettier.
 
 ## Prerequisites
 
