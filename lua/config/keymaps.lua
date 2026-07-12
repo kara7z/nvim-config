@@ -39,7 +39,7 @@ end, { desc = "Explorer (Snacks)" })
 map("n", "<C-a>", "ggVG", { desc = "Select all" })
 
 -- =========================================================
--- F8: Toggle ONE bottom terminal split (no new tab/split each time)
+-- Terminal toggle (F8 / Ctrl+/)
 -- =========================================================
 local term = {
   buf = nil,
@@ -47,54 +47,35 @@ local term = {
   height = 15,
 }
 
-local function open_term_window()
-  -- open bottom split
-  vim.cmd(("botright %dsplit"):format(term.height))
-  term.win = vim.api.nvim_get_current_win()
-
-  -- create terminal buffer if needed
-  if not term.buf or not vim.api.nvim_buf_is_valid(term.buf) then
-    term.buf = vim.api.nvim_create_buf(false, false)
-    vim.bo[term.buf].bufhidden = "hide"
-    vim.api.nvim_win_set_buf(term.win, term.buf)
-    vim.cmd("terminal")
-  else
-    vim.api.nvim_win_set_buf(term.win, term.buf)
-  end
-
-  vim.cmd("startinsert")
-end
-
 local function toggle_term()
-  -- If terminal window is open, close it
   if term.win and vim.api.nvim_win_is_valid(term.win) then
     vim.api.nvim_win_close(term.win, true)
     term.win = nil
     return
   end
 
-  -- If current buffer is terminal, just hide it
   if vim.bo.buftype == "terminal" then
     vim.cmd("hide")
     term.win = nil
     return
   end
 
-  -- Otherwise open (or re-open) the same terminal buffer
-  open_term_window()
+  vim.cmd(("botright %dsplit"):format(term.height))
+  term.win = vim.api.nvim_get_current_win()
+
+  if not term.buf or not vim.api.nvim_buf_is_valid(term.buf) then
+    term.buf = vim.api.nvim_create_buf(false, false)
+    vim.bo[term.buf].bufhidden = "hide"
+  end
+
+  vim.api.nvim_win_set_buf(term.win, term.buf)
+  if vim.bo[term.buf].buftype ~= "terminal" then
+    vim.cmd("terminal")
+  end
+  vim.cmd("startinsert")
 end
 
--- Normal mode: F8 toggles terminal
-map("n", "<F8>", toggle_term, { desc = "Toggle Terminal (single split)" })
-
--- Terminal mode: F8 closes/hides terminal
-map("t", "<F8>", function()
-  -- go normal mode then close terminal window if it's the tracked one
-  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-\\><C-n>", true, false, true), "n", false)
-  if term.win and vim.api.nvim_win_is_valid(term.win) then
-    vim.api.nvim_win_close(term.win, true)
-    term.win = nil
-  else
-    vim.cmd("hide")
-  end
-end, { desc = "Toggle Terminal (single split)", silent = true })
+map("n", "<F8>", toggle_term, { desc = "Toggle Terminal" })
+map("t", "<F8>", [[<C-\><C-n><cmd>lua toggle_term()<cr>]], { desc = "Toggle Terminal" })
+map("n", "<C-_>", toggle_term, { desc = "Toggle Terminal" })
+map("t", "<C-_>", [[<C-\><C-n><cmd>lua toggle_term()<cr>]], { desc = "Toggle Terminal" })
