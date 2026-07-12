@@ -3,7 +3,7 @@ return {
   {
     "EmranMR/tree-sitter-blade",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
-    build = ":TSUpdate",
+    build = ":TSInstall blade",
   },
   -- Ensure treesitter installs the languages we need
   {
